@@ -60,6 +60,8 @@
 - **Data** — постачальники форматів даних, сервіси імпорту, експорту, аналізу та формування звітів;
 - **UI** — графічний інтерфейс Windows Forms.
 
+### 5.1. Діаграма сутностей предметної області
+
 ```mermaid
 classDiagram
     class Patient {
@@ -70,47 +72,22 @@ classDiagram
         +int Children
         +bool Smoker
         +string Region
+        +List~InsuranceRecord~ InsuranceRecords
     }
 
     class InsuranceRecord {
         +int Id
         +int PatientId
         +decimal Charges
-        +string Smoker
+        +Patient Patient
     }
 
-    class InsuranceRow {
-        +int Id
-        +int Age
-        +string Sex
-        +decimal Bmi
-        +int Children
-        +string Smoker
-        +string Region
-        +decimal Charges
-    }
-
-    class InsuranceDataService {
-        +Import()
-        +Export()
-        +Filter()
-        +Search()
-        +Sort()
-        +Analyze()
-        +Validate()
-    }
-
-    class IDataProvider {
-        <<interface>>
-        +Import()
-        +Export()
-    }
-
-    Patient "1" --> "*" InsuranceRecord
-    InsuranceRecord --> Patient
-    InsuranceDataService --> IDataProvider
-    InsuranceDataService --> InsuranceRecord
+    Patient "1" --> "0..*" InsuranceRecord : InsuranceRecords
 ```
+
+У предметній області виділено дві сутності. `Patient` зберігає персональні та медичні характеристики людини: вік, стать, індекс маси тіла, кількість дітей, статус куріння й регіон проживання. `InsuranceRecord` зберігає інформацію про страховий запис і його вартість (`Charges`). Такий поділ дає змогу відокремити дані людини від даних про страхування.
+
+Між сутностями встановлено зв'язок «один-до-багатьох»: один пацієнт може мати нуль або більше страхових записів. Цей зв'язок реалізовано в коді властивостями `Patient.InsuranceRecords` та `InsuranceRecord.Patient`.
 
 ## 6. Імпорт даних
 
