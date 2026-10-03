@@ -28,8 +28,8 @@ public partial class InsuranceRecordForm : Form
             return;
         }
 
-        ResultRecord = new InsuranceRecord { Id = _recordId, PatientId = _recordId, Age = age, Sex = comboBoxSex.Text, Bmi = bmi, Children = children, Smoker = comboBoxSmoker.Text, Region = comboBoxRegion.Text, Charges = charges };
-        ResultRecord.Patient.Id = ResultRecord.PatientId;
+        ResultRecord = new InsuranceRecord { Id = _recordId, Age = age, Sex = comboBoxSex.Text, Bmi = bmi, Children = children, Smoker = comboBoxSmoker.Text, Region = comboBoxRegion.Text, Charges = charges };
+        ResultRecord.Patient.Id = _recordId;
         ResultRecord.Patient.InsuranceRecords.Add(ResultRecord);
     }
 

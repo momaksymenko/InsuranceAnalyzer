@@ -18,7 +18,7 @@ public class XlsxProvider : IDataProvider
             start = 1;
 
         return sheet.RowsUsed().Skip(start).Select((r, i) =>
-            InsuranceMapper.FromValues(Enumerable.Range(1, 7).Select(c => r.Cell(c).GetString()).ToList(), i + 1)).ToList();
+            InsuranceMapper.FromValues(Enumerable.Range(1, 7).Select(c => r.Cell(c).GetString()).ToList(), i + 1, options.DecimalSeparator)).ToList();
     }
     public void Export(string path, List<InsuranceRow> rows, ExportOptions options)
     {

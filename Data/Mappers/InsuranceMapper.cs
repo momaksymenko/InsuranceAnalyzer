@@ -33,7 +33,6 @@ public static class InsuranceMapper
         var record = new InsuranceRecord
         {
             Id = row.Id,
-            PatientId = patient.Id,
             Patient = patient,
             Smoker = row.Smoker,
             Charges = row.Charges
@@ -59,6 +58,12 @@ public static class InsuranceMapper
 
     private static decimal ReadDecimal(string value, char decimalSeparator)
     {
-        return decimal.Parse(value.Replace(decimalSeparator, '.'), System.Globalization.CultureInfo.InvariantCulture);
+        var normalizedValue = value.Trim();
+        if (decimalSeparator == ',')
+            normalizedValue = normalizedValue.Replace(',', '.');
+        else if (normalizedValue.Contains(',') && !normalizedValue.Contains('.'))
+            normalizedValue = normalizedValue.Replace(',', '.');
+
+        return decimal.Parse(normalizedValue, System.Globalization.CultureInfo.InvariantCulture);
     }
 }

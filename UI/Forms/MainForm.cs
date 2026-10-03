@@ -306,8 +306,7 @@ public partial class MainForm : Form
         record.Id = 1;
         if (_allRows.Count > 0)
             record.Id = _allRows.Max(row => row.Id) + 1;
-        record.PatientId = record.Id;
-        record.Patient.Id = record.PatientId;
+        record.Patient.Id = record.Id;
         SaveRecord(record, null);
     }
 

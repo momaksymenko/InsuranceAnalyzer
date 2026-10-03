@@ -9,9 +9,6 @@ public class InsuranceRecord
     public int Id { get; set; }
 
     [Browsable(false)]
-    public int PatientId { get; set; }
-
-    [Browsable(false)]
     public Patient Patient { get; set; } = new();
 
     public int Age { get { return Patient.Age; } set { Patient.Age = value; } }
@@ -28,9 +25,9 @@ public class InsuranceRecord
             else
                 _smoker = value.Trim();
 
-            if (_smoker.Equals("yes", StringComparison.OrdinalIgnoreCase)) 
+            if (_smoker.Equals("yes", StringComparison.OrdinalIgnoreCase))
                 Patient.Smoker = true;
-            if (_smoker.Equals("no", StringComparison.OrdinalIgnoreCase)) 
+            else if (_smoker.Equals("no", StringComparison.OrdinalIgnoreCase))
                 Patient.Smoker = false;
         }
     }

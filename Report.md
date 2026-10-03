@@ -77,7 +77,6 @@ classDiagram
 
     class InsuranceRecord {
         +int Id
-        +int PatientId
         +decimal Charges
         +Patient Patient
     }
